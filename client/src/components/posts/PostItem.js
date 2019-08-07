@@ -11,7 +11,8 @@ const PostItem = ({
   deletePost,
   auth,
   postDetails: { _id, text, name, avatar, user, likes, comments, date },
-  showActions, // condition to reuse this component individual post 'Discussion '
+  showActions,
+  // condition to reuse this component individual post 'Discussion '
 }) => {
   const [edit, setText] = useState(false);
   return (
@@ -24,17 +25,14 @@ const PostItem = ({
       </div>
       <div>
         {/* <Link to={`/posts/edit/${_id}`}>Edit</Link> */}
-
-        {!auth.loading && user === auth.user.user._id && (
-          <button onClick={() => setText(true)} className="btn btn-light">
-            <i className="fas fa-edit" />
-            Edit
-          </button>
-        )}
+        <button onClick={() => setText(true)} className="btn btn-light">
+          <i className="fas fa-edit" />
+          Edit
+        </button>
 
         {edit ? (
           <Fragment>
-            <EditPost currentText={text} _id={_id} setEdit={setText} />
+            <EditPost currentText={text} _id={_id} passSetEdit={setText} />
           </Fragment>
         ) : (
           <p /* contenteditable={true} */ className="my-1">{text}</p>
@@ -76,6 +74,7 @@ PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
   addAndRemoveLike: PropTypes.func.isRequired,
   addPost: PropTypes.func.isRequired,
+  editPost: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   showActions: PropTypes.bool,
 };

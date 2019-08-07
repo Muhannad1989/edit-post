@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editPost } from './../../actions/post';
-const EditPost = ({ setEdit, editPost, currentText, _id }) => {
+const EditPost = ({ passSetEdit, editPost, currentText, _id }) => {
   const [text, setText] = useState(currentText);
   const cancel = () => {
     setText(currentText);
-    setEdit(false);
+    passSetEdit(false);
   };
 
   return (
@@ -24,7 +24,7 @@ const EditPost = ({ setEdit, editPost, currentText, _id }) => {
           // reset the form
           setText('');
           // close editing
-          setEdit(false);
+          passSetEdit(false);
         }}
       >
         <textarea
@@ -46,12 +46,12 @@ const EditPost = ({ setEdit, editPost, currentText, _id }) => {
 EditPost.propTypes = {
   editPost: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
-  // auth: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   post: state.post,
-  // auth: state.auth,
+  auth: state.auth,
 });
 
 export default connect(
