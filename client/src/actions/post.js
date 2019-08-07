@@ -14,6 +14,30 @@ import {
   EDIT_ERROR,
 } from './types';
 
+// update post
+export const editPost = formData => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const res = await axios.put(`/api/posts/5d497f167d57be1f5c65577d`, formData, config);
+    // no need for returned data
+    dispatch({
+      type: EDIT_POST,
+      payload: res.data,
+    });
+    dispatch(setAlert('Post Update', 'success'));
+  } catch (err) {
+    dispatch({
+      type: EDIT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Get Post
 export const getPosts = () => async dispatch => {
   try {
@@ -25,27 +49,6 @@ export const getPosts = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
-};
-
-export const editPost = newPost => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  try {
-    const res = await axios.post(`/api/posts`, newPost, config);
-    dispatch({
-      type: EDIT_POST,
-      payload: res.data,
-    });
-    dispatch(setAlert('Post Removed', 'success'));
-  } catch (err) {
-    dispatch({
-      type: EDIT_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editPost } from './../../actions/post';
-const EditPost = ({ currentText }) => {
-  let data;
-  if (currentText) {
-    data = currentText;
-  } else {
-    data = '';
-  }
-  const [text, setText] = useState('');
+const EditPost = () => {
+  // let data;
+  // if (currentText) {
+  //   data = currentText;
+  // } else {
+  //   data = '';
+  // }
+  // const [text, setText] = useState(text);
   return (
     <div class="post-form">
       <div class="bg-primary p">
@@ -20,13 +20,13 @@ const EditPost = ({ currentText }) => {
         class="form my-1"
         onSubmit={e => {
           e.preventDefault();
-          editPost('ssssss', '5d497f167d57be1f5c65577d');
-          setText('');
+          editPost('dddddddddddd', '5d497e72013c933218f0da6f');
+          // setText('');
         }}
       >
         <textarea
           name="text"
-          value={'text'}
+          value={'dddddddddddd'}
           // onChange={e => setText('currentText')}
           cols="30"
           rows="5"
@@ -43,11 +43,11 @@ EditPost.propTypes = {
   editPost: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  post: state.post,
-});
+// const mapStateToProps = state => ({
+//   post: state.post,
+// });
 
 export default connect(
-  mapStateToProps,
+  null,
   { editPost },
 )(EditPost);

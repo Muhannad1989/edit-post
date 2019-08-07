@@ -21,7 +21,7 @@ export const loadUser = () => async dispatch => {
     // if (localStorage.token) {
     axios.defaults.headers.common['x-auth-token'] = localStorage.token;
   } else {
-    delete axios.defaults.headers.common['x-auth-token'];
+    // delete axios.defaults.headers.common['x-auth-token'];
     // }
   }
   try {

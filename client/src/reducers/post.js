@@ -16,34 +16,35 @@ const initState = {
   post: null,
   loading: true,
   error: {},
-  edit: false,
-  displayForm: false,
+  // edit: false,
 };
 
 export default function(state = initState, action) {
   const { payload, type } = action;
   switch (type) {
-    case ADD_POST:
-      return {
-        ...state,
-        posts: [payload, ...state.posts], // add new post (payload)
-        loading: false,
-      };
-
     case EDIT_POST:
       return {
         ...state,
         post: payload,
         loading: false,
-        edit: true,
+        // edit: true,
       };
     case EDIT_ERROR:
       return {
         ...state,
         post: payload,
         loading: false,
-        edit: false,
+        // edit: false,
       };
+
+    case ADD_POST:
+      // case EDIT_POST:
+      return {
+        ...state,
+        posts: [payload, ...state.posts], // add new post (payload)
+        loading: false,
+      };
+
     case GET_POSTS:
       return {
         ...state,
@@ -65,6 +66,7 @@ export default function(state = initState, action) {
         loading: false,
       };
     case POST_ERROR:
+      // case EDIT_ERROR:
       return {
         ...state,
         error: payload,

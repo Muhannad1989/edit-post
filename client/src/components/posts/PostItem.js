@@ -4,17 +4,14 @@ import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { /*addLike, removeLike*/ addAndRemoveLike, deletePost } from '../../actions/post';
-import { addPost, editPost } from './../../actions/post';
-import PostForm from './PostForm';
-
+import { addPost } from './../../actions/post';
+import EditPost from './EditPost';
 const PostItem = ({
   // addLike,
   // removeLike,
   addAndRemoveLike,
   deletePost,
-  addPost,
   auth,
-  // post: { edit },
   postDetails: { _id, text, name, avatar, user, likes, comments, date },
   showActions, // condition to reuse this component individual post 'Discussion '
 }) => {
@@ -28,13 +25,15 @@ const PostItem = ({
         </Link>
       </div>
       <div>
+        {/* <Link to={`/posts/edit/${_id}`}>Edit</Link> */}
         <button onClick={() => setText(true)} className="btn btn-light">
           <i className="fas fa-edit" />
           Edit
         </button>
+
         {edit ? (
           <Fragment>
-            <PostForm currentText={text} />
+            <EditPost currentText={text} _id={_id} />
           </Fragment>
         ) : (
           <p contenteditable={true} className="my-1">
@@ -42,7 +41,9 @@ const PostItem = ({
           </p>
         )}
 
-        {/* <p className="my-1">{_id}</p> */}
+        {/* <p contenteditable={true} className="my-1">{text}</p> */}
+
+        <p className="my-1">{_id}</p>
         <p className="post-date">
           Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
         </p>
@@ -53,9 +54,6 @@ const PostItem = ({
               <i className="fas fa-thumbs-up" />{' '}
               <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
             </button>
-            {/* <button onClick={() => removeLike(_id)} type="button" className="btn btn-light">
-            <i className="fas fa-thumbs-down" />
-          </button> */}
             <Link to={`/posts/${_id}`} className="btn btn-primary">
               Discussion{' '}
               {comments.length > 0 && <span className="comment-count">{comments.length}</span>}
@@ -65,9 +63,6 @@ const PostItem = ({
                 <i className="fas fa-times" />
               </button>
             )}
-            {/* <button type="button" className="btn btn-success">
-            Share <i className="fas fa-share" />
-          </button> */}
           </Fragment>
         )}
       </div>
@@ -84,9 +79,7 @@ PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
   addAndRemoveLike: PropTypes.func.isRequired,
   addPost: PropTypes.func.isRequired,
-  editPost: PropTypes.func.isRequired,
-  // addLike: PropTypes.func.isRequired,
-  // removeLike: PropTypes.func.isRequired,
+  // editPost: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   showActions: PropTypes.bool,
 };
@@ -98,5 +91,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { /* addLike, removeLike*/ addAndRemoveLike, deletePost, addPost, editPost },
+  { addAndRemoveLike, deletePost, addPost },
 )(PostItem);

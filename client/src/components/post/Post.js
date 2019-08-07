@@ -7,9 +7,12 @@ import { getPost } from './../../actions/post';
 import { Link, withRouter } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
+import EditPost from './EditPost';
 
 // add history to redirect to posts when something wrong
 const Post = ({ getPost, history, post: { post, loading }, match }) => {
+  // postDetails: { _id, text, name, avatar, user, likes, comments, date },
+
   useEffect(() => {
     getPost(match.params.id, history);
   }, [getPost, match.params.id, history]);
@@ -21,6 +24,12 @@ const Post = ({ getPost, history, post: { post, loading }, match }) => {
       <Link to="/posts" className="btn">
         Back To Posts
       </Link>
+      <button className="btn btn-light">
+        <i className="fas fa-edit" />
+        Edit
+      </button>
+
+      <EditPost post={post} />
       <PostItem post={post} showActions={false} />
       <CommentForm postId={post._id} />
       <div className="fsd">

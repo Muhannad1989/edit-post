@@ -7,17 +7,19 @@ const getAllPosts = require('./callbacks/posts/getAllPosts');
 const getPostById = require('./callbacks/posts/getPostById');
 const removePostById = require('./callbacks/posts/removePostById');
 
-const addLike = require('./callbacks/posts/addLike');
-const unLike = require('./callbacks/posts/unLike');
+// const addLike = require('./callbacks/posts/addLike');
+// const unLike = require('./callbacks/posts/unLike');
 const addAndRemoveLike = require('./callbacks/posts/addAndRemoveLike');
 
 const addComment = require('./callbacks/posts/addComment');
 const removeComment = require('./callbacks/posts/removeComment');
 
+const editPost = require('./callbacks/posts/editPost');
+
 const router = express.Router();
 
 // @route           POST api/posts
-// @description     Test route
+// @description     Add post
 // @access          Private
 
 router.post(
@@ -31,6 +33,23 @@ router.post(
     ],
   ],
   addPost,
+);
+
+// @route           POST api/posts
+// @description     Add post
+// @access          Private
+
+router.put(
+  '/:id',
+  [
+    auth,
+    [
+      check('text', 'Text is requierd')
+        .not()
+        .isEmpty(),
+    ],
+  ],
+  editPost,
 );
 
 // @route           Get api/posts
