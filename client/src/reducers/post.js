@@ -16,7 +16,7 @@ const initState = {
   post: null,
   loading: true,
   error: {},
-  // edit: false,
+  edit: false,
 };
 
 export default function(state = initState, action) {
@@ -27,14 +27,14 @@ export default function(state = initState, action) {
         ...state,
         post: payload,
         loading: false,
-        // edit: true,
+        edit: false,
       };
     case EDIT_ERROR:
       return {
         ...state,
         post: payload,
         loading: false,
-        // edit: false,
+        edit: false,
       };
 
     case ADD_POST:

@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { /*addLike, removeLike*/ addAndRemoveLike, deletePost } from '../../actions/post';
+import { addAndRemoveLike, deletePost } from '../../actions/post';
 import { addPost } from './../../actions/post';
 import EditPost from './EditPost';
 const PostItem = ({
-  // addLike,
-  // removeLike,
   addAndRemoveLike,
   deletePost,
   auth,
@@ -26,22 +24,21 @@ const PostItem = ({
       </div>
       <div>
         {/* <Link to={`/posts/edit/${_id}`}>Edit</Link> */}
-        <button onClick={() => setText(true)} className="btn btn-light">
-          <i className="fas fa-edit" />
-          Edit
-        </button>
+
+        {!auth.loading && user === auth.user.user._id && (
+          <button onClick={() => setText(true)} className="btn btn-light">
+            <i className="fas fa-edit" />
+            Edit
+          </button>
+        )}
 
         {edit ? (
           <Fragment>
-            <EditPost currentText={text} _id={_id} />
+            <EditPost currentText={text} _id={_id} setEdit={setText} />
           </Fragment>
         ) : (
-          <p contenteditable={true} className="my-1">
-            {text}
-          </p>
+          <p /* contenteditable={true} */ className="my-1">{text}</p>
         )}
-
-        {/* <p contenteditable={true} className="my-1">{text}</p> */}
 
         <p className="my-1">{_id}</p>
         <p className="post-date">
@@ -79,7 +76,6 @@ PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
   addAndRemoveLike: PropTypes.func.isRequired,
   addPost: PropTypes.func.isRequired,
-  // editPost: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   showActions: PropTypes.bool,
 };
