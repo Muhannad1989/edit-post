@@ -24,11 +24,12 @@ const PostItem = ({
         </Link>
       </div>
       <div>
-        {/* <Link to={`/posts/edit/${_id}`}>Edit</Link> */}
-        <button onClick={() => setText(true)} className="btn btn-light">
-          <i className="fas fa-edit" />
-          Edit
-        </button>
+        {!auth.loading && user === auth.user.user._id && (
+          <button onClick={() => setText(true)} className="btn btn-light">
+            <i className="fas fa-edit" />
+            Edit
+          </button>
+        )}
 
         {edit ? (
           <Fragment>

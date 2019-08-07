@@ -13,7 +13,7 @@ const EditPost = ({ passSetEdit, editPost, currentText, _id }) => {
     <div class="post-form">
       <div class="bg-primary p">
         <h3>Edit post ID : {_id} </h3>
-        <h3>Edit text : {currentText}</h3>
+        <h3>Current Post: {currentText}</h3>
       </div>
       <form
         class="form my-1"
@@ -37,7 +37,9 @@ const EditPost = ({ passSetEdit, editPost, currentText, _id }) => {
           required
         />
         <input type="submit" class="btn btn-dark my-1" value="Submit" />
-        <input onClick={cancel} type="cancel" class="btn btn-info my-1" value="Cancel" />
+        <button onClick={cancel} type="cancel" class="btn btn-info my-1">
+          <i className="fas fa-cancel" /> {'  '} Cancel
+        </button>
       </form>
     </div>
   );
