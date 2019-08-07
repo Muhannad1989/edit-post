@@ -10,13 +10,13 @@ const EditPost = ({ passSetEdit, editPost, currentText, _id }) => {
   };
 
   return (
-    <div class="post-form">
-      <div class="bg-primary p">
+    <div className="post-form">
+      <div className="bg-primary p">
         <h3>Edit post ID : {_id} </h3>
         <h3>Current Post: {currentText}</h3>
       </div>
       <form
-        class="form my-1"
+        className="form my-1"
         onSubmit={e => {
           e.preventDefault();
           // write new text on this id
@@ -36,9 +36,9 @@ const EditPost = ({ passSetEdit, editPost, currentText, _id }) => {
           placeholder="Create a post"
           required
         />
-        <input type="submit" class="btn btn-dark my-1" value="Submit" />
-        <button onClick={cancel} type="cancel" class="btn btn-info my-1">
-          <i className="fas fa-cancel" /> {'  '} Cancel
+        <input type="submit" className="btn btn-dark my-1" value="Submit" />
+        <button onClick={cancel} type="cancel" className="btn btn-info my-1">
+          <i classNameName="fas fa-cancel" /> {'  '} Cancel
         </button>
       </form>
     </div>

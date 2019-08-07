@@ -21,7 +21,7 @@ const Post = ({ getPost, history, post: { post, loading }, match }) => {
       <Link to="/posts" className="btn">
         Back To Posts
       </Link>
-      <PostItem post={post} showActions={false} />
+      <PostItem postDetails={post} showActions={false} />
       <CommentForm postId={post._id} />
       <div className="comments">
         {post.comments.map(comment => (
