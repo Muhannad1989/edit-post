@@ -15,7 +15,7 @@ import {
 } from './types';
 
 // update post
-export const editPost = formData => async dispatch => {
+export const editPost = (formData, id) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -23,7 +23,7 @@ export const editPost = formData => async dispatch => {
       },
     };
 
-    const res = await axios.put(`/api/posts/5d497f167d57be1f5c65577d`, formData, config);
+    const res = await axios.put(`/api/posts/${id}`, formData, config);
     // no need for returned data
     dispatch({
       type: EDIT_POST,

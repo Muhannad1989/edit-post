@@ -1,17 +1,15 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
+import { getPosts } from '../../actions/post';
 
-import { getPosts, editPost } from '../../actions/post';
-
-const Posts = ({ editPost, getPosts, post: { posts, loading } }) => {
+const Posts = ({ getPosts, post: { posts, loading } }) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
-  const [text, setText] = useState('');
 
   return loading ? (
     <Spinner />
@@ -19,30 +17,9 @@ const Posts = ({ editPost, getPosts, post: { posts, loading } }) => {
     <Fragment>
       <h1 className="large text-primary">Posts</h1>
       <p className="lead">
-        <i className="fas fa-user" /> Welcome to the community x
+        <i className="fas fa-user" /> Welcome to the community
       </p>
-
-      <form
-        class="form my-1"
-        onSubmit={e => {
-          e.preventDefault();
-          editPost({ text: 'this is a new text from redux' });
-          setText('');
-        }}
-      >
-        <textarea
-          name="text"
-          value={text}
-          cols="30"
-          rows="5"
-          onChange={e => setText(e.target.value)}
-          placeholder="Create a post"
-          required
-        />
-        <input type="submit" class="btn btn-dark my-1" value="change" />
-      </form>
-
-      {/* <PostForm /> */}
+      <PostForm />
       <div className="posts">
         {posts.map(post => (
           <PostItem key={post._id} postDetails={post} />
@@ -63,5 +40,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPosts, editPost },
+  { getPosts },
 )(Posts);
