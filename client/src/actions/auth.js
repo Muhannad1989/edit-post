@@ -17,12 +17,7 @@ export const loadUser = () => async dispatch => {
   // checking the token inside the header
   if (localStorage.token) {
     // remain the token inside the header and storage
-    // setAuthToken(localStorage.token);
-    // if (localStorage.token) {
-    axios.defaults.headers.common['x-auth-token'] = localStorage.token;
-  } else {
-    // delete axios.defaults.headers.common['x-auth-token'];
-    // }
+    setAuthToken(localStorage.token);
   }
   try {
     const res = await axios.get('/api/auth');
@@ -51,6 +46,7 @@ export const register = ({ name, email, password }) => async dispatch => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
@@ -77,6 +73,7 @@ export const login = (email, password) => async dispatch => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;

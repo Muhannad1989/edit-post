@@ -58,7 +58,6 @@ export const getPosts = () => async dispatch => {
 export const addAndRemoveLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/posts/like/${id}`);
-    console.log(res.data);
     dispatch({
       type: UPDATE_LIKES,
       payload: { id, likes: res.data },
