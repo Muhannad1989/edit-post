@@ -29,7 +29,7 @@ export const editPost = (formData, id) => async dispatch => {
       type: EDIT_POST,
       payload: res.data,
     });
-    dispatch(setAlert('Post Update', 'success'));
+    dispatch(setAlert('Post Updated', 'success'));
   } catch (err) {
     dispatch({
       type: EDIT_ERROR,

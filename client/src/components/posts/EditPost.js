@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editPost } from './../../actions/post';
+import './editPost.css';
 const EditPost = ({ passSetEdit, editPost, currentText, _id }) => {
   const [text, setText] = useState(currentText);
   const cancel = () => {
@@ -11,7 +12,7 @@ const EditPost = ({ passSetEdit, editPost, currentText, _id }) => {
 
   return (
     <div className="post-form">
-      <div className="bg-primary p">
+      <div className="bg-primary p edit-post-title">
         <h3>Edit post ID : {_id} </h3>
         <h3>Current Post: {currentText}</h3>
       </div>
