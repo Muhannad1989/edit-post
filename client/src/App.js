@@ -16,6 +16,7 @@ import Post from './components/post/Post';
 import EditProfile from './components/profile-forms/EditProfile';
 import AddExperience from './components/profile-forms/AddExperience';
 import AddEducation from './components/profile-forms/AddEducation';
+import AnotherLogIn from './components/fbConfig/AnotherLogIn';
 
 import store from './store';
 
@@ -48,6 +49,7 @@ const App = () => {
               <Route exact path="/login" component={Login} />
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/profile/:id" component={Profile} />
+
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/create-profile" component={CreateProfile} />
               <PrivateRoute exact path="/edit-profile" component={EditProfile} />
@@ -57,6 +59,7 @@ const App = () => {
               <PrivateRoute exact path="/posts/:id" component={Post} />
             </Switch>
           </section>
+          <AnotherLogIn />
         </Fragment>
       </Router>
     </Provider>
