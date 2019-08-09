@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { login } from '../../actions/auth';
+import AnotherLogIn from './AnotherLogIn';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -54,7 +55,12 @@ const Login = ({ login, isAuthenticated }) => {
         </div>
 
         <input type="submit" className="btn btn-primary" value="Login" />
+        <label>Login with another account</label>
       </form>
+      <button onClick={'change singin'} className="btn btn-danger">
+        Another account
+      </button>
+      <AnotherLogIn />
       <p className="my-1">
         Don't have an account? <Link to="/register">Sign Up</Link>
       </p>
