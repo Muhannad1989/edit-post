@@ -7,6 +7,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
+  REGISTER2,
+  REGISTER2_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
+  isSignedIn: false,
 };
 
 // change initial State according to different cases ('types': which is as a key between functions('action') ans cases('reducer') )
@@ -21,6 +24,15 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case REGISTER2:
+      localStorage.setItem('token', payload.token);
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: true,
+        loading: false,
+        isSignedIn: true,
+      };
     case USER_LOADED:
       return {
         ...state,
@@ -37,6 +49,7 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
+    case REGISTER2_FAIL:
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
@@ -49,6 +62,7 @@ export default function(state = initialState, action) {
         token: null,
         isAuthenticated: false,
         loading: false,
+        isSignedIn: false,
       };
     default:
       return state;

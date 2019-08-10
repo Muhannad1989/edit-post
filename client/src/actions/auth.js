@@ -9,8 +9,37 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_PROFILE,
+  REGISTER2,
+  REGISTER2_FAIL,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
+
+// Register with social network
+export const register2 = ({ email, name }) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ email, name });
+  try {
+    const res = await axios.post(`/api/register2/${email}/${name}`, body, config);
+    dispatch({
+      type: REGISTER2,
+      payload: res.data, // expect a user token from database
+    });
+
+    dispatch(loadUser());
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: REGISTER2_FAIL,
+    });
+  }
+};
 
 // Loaded User
 export const loadUser = () => async dispatch => {

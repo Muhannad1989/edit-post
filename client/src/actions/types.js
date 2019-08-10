@@ -28,3 +28,6 @@ export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 export const EDIT_POST = 'EDIT_POST';
 export const EDIT_ERROR = 'EDIT_ERROR';
+
+export const REGISTER2 = 'REGISTER2';
+export const REGISTER2_FAIL = 'REGISTER2_FAIL';

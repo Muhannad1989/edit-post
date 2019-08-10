@@ -18,6 +18,7 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/changepassword', require('./routes/api/changepassword'));
 app.use('/api/send', require('./routes/api/send'));
 app.use('/api/reset', require('./routes/api/reset'));
+app.use('/api/register2', require('./routes/api/register2'));
 
 const PORT = process.env.PORT || 5000;
 
