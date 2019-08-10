@@ -1,8 +1,8 @@
 const express = require('express');
 const auth = require('../../middleware/auth');
-
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
+
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { validationResult } = require('express-validator');
@@ -13,7 +13,7 @@ const router = express.Router();
 // @description     Change password post
 // @access          Private
 router.put(
-  '/xxx',
+  '/',
   [
     auth,
     // [
@@ -22,39 +22,40 @@ router.put(
     // ],
   ],
   async (request, response) => {
+    const { currentpassword, password, password2 } = request.body;
     // const errors = validationResult(request);
-    // // if they are errors
+    // if they are errors
     // if (!errors.isEmpty()) {
     //   return response.status(400).json({ errors: errors.array() });
     // }
 
-    // check current password
+    // check password
+    if (password !== password2) {
+      return response.json({ errors: 'passwords not match' });
+    }
 
-    console.log(request.user);
-
-    // let result = currentPassword;
-    // if (password !== password2) {
-    //   return response.json({ errors: 'passwords not match' });
-    // }
-
-    // // check password
-    // if (password !== password2) {
-    //   return response.json({ errors: 'passwords not match' });
-    // }
-    // const { currentPassword, password, password2 } = request.body;
     try {
+      let user = await User.findOne({ _id: request.user.id });
+
       // check if the user exsist
+      if (!user) {
+        return response.status(404).json({ error: 'no user' });
+      }
 
-      // let user = await User.findOne({ email });
+      // match
+      const isMatch = await bcrypt.compare(currentpassword, user.password);
 
-      // // Encrypt password
-      // const salt = await bcrypt.genSalt(10);
+      if (!isMatch) {
+        return response.status(400).json({ error: [{ message: 'Invalid Credentials' }] });
+      }
 
-      // user.password = await bcrypt.hash(password, salt);
-      // await user.save();
-      response.send('good');
+      // Encrypt password
+      const salt = await bcrypt.genSalt(10);
+
+      user.password = await bcrypt.hash(password, salt);
+      await user.save();
+      response.json({ result: 'good' });
     } catch (error) {
-      // console.log(error.message)
       response.status(404).send('Server error');
     }
   },
