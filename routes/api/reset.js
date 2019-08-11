@@ -31,12 +31,7 @@ router.put('/', async (request, response) => {
       .toString(36)
       .slice(2);
 
-    await mail(
-      response,
-      'Reset Password',
-      'muhannadjudah@gmail.com',
-      `Your temporarily password is  : ${newPassword}`,
-    );
+    await mail(response, 'Reset Password', email, `Your temporarily password is  : ${newPassword}`);
 
     // Encrypt password
     const salt = await bcrypt.genSalt(10);

@@ -9,6 +9,8 @@ import {
   ACCOUNT_DELETED,
   REGISTER2,
   REGISTER2_FAIL,
+  CHANGE_PASSWORD,
+  CHANGE_PASSWORD_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -24,6 +26,18 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    // case CHANGE_PASSWORD:
+    //   return {
+    //     ...state,
+    //     isAuthenticated: true,
+    //     loading: false,
+    //   };
+    // case CHANGE_PASSWORD_FAIL:
+    //   return {
+    //     ...state,
+    //     isAuthenticated: true,
+    //     loading: false,
+    //   };
     case REGISTER2:
       localStorage.setItem('token', payload.token);
       return {

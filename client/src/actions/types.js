@@ -31,3 +31,9 @@ export const EDIT_ERROR = 'EDIT_ERROR';
 
 export const REGISTER2 = 'REGISTER2';
 export const REGISTER2_FAIL = 'REGISTER2_FAIL';
+
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
+export const CHANGE_PASSWORD_FAIL = 'CHANGE_PASSWORD_FAIL';
+
+export const RESET_SUCCESS = 'RESET';
+export const RESET_FAIL = 'RESET_FAIL';

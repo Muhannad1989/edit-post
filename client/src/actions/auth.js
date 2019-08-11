@@ -11,8 +11,78 @@ import {
   CLEAR_PROFILE,
   REGISTER2,
   REGISTER2_FAIL,
+  CHANGE_PASSWORD,
+  CHANGE_PASSWORD_FAIL,
+  RESET_SUCCESS,
+  RESET_FAIL,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
+
+// Reset password
+export const reset = email => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ email });
+  try {
+    const res = await axios.put(`/api/reset`, body, config);
+
+    dispatch({
+      type: RESET_SUCCESS,
+      payload: res.data, // expect a user token from database
+    });
+    dispatch(setAlert('Email Sent , Check your email ', 'success'));
+
+    // dispatch(loadUser());
+  } catch (err) {
+    dispatch(setAlert('There is an error', 'danger'));
+    dispatch({
+      type: RESET_FAIL,
+    });
+  }
+};
+
+// change password
+export const changePassword = (currentpassword, password, password2) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ currentpassword, password, password2 });
+  try {
+    const res = await axios.put(`/api/changepassword`, body, config);
+
+    dispatch({
+      type: CHANGE_PASSWORD,
+      payload: res.data, // expect a user token from database
+    });
+    dispatch(setAlert(res.data, 'success'));
+
+    dispatch(loadUser());
+  } catch (err) {
+    // const errors = err.response.data.errors;
+
+    // if (errors) {
+    //   errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    // }
+    // dispatch(setAlert(res.data, 'danger'));
+
+    // dispatch({
+    //   type: CHANGE_PASSWORD_FAIL,
+    // });
+
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: CHANGE_PASSWORD_FAIL,
+    });
+  }
+};
 
 // Register with social network
 export const register2 = ({ email, name }) => async dispatch => {

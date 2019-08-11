@@ -24,14 +24,14 @@ const uiConfig = {
   },
 };
 
-const AnotherLogIn = ({ register2, auth: { loading } }) => {
+const AnotherLogIn = ({ register2 /*auth: { isSignedIn }*/ }) => {
   const [isSignedIn, setText] = useState(false);
-
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
-      // this.setState({ isSignedIn: !!user });
-      setText({ isSignedIn: !!user }); // hook
-      register2(user.email, user.email);
+      this.setState({ isSignedIn: !!user });
+      // setText({ isSignedIn: !!user }); // hook
+      setText({ isSignedIn: true }); // hook
+      // register2(user.email, user.email);
       console.log({ email: user.email, name: user.displayName });
     });
   }, []);
@@ -40,6 +40,7 @@ const AnotherLogIn = ({ register2, auth: { loading } }) => {
     <div className="App">
       {isSignedIn ? (
         <span>
+          {/* inside */}
           <div>Signed In!</div>
           <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
           <h1>Welcome {firebase.auth().currentUser.displayName}</h1>

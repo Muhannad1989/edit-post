@@ -23,17 +23,18 @@ router.post(
 
       // generate avatar
 
-      const avatar = gravatar.url(email, {
-        s: '200',
-        r: 'pg',
-        d: 'mm',
-      });
+      // const avatar = gravatar.url(email, {
+      //   s: '200',
+      //   r: 'pg',
+      //   d: 'mm',
+      // });
 
       // create instance
       user = new User({
         name,
         email,
-        avatar,
+        password: 'temp@password',
+        // avatar,
       });
 
       // save without password (name , email , avatar)
