@@ -26,18 +26,11 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    // case CHANGE_PASSWORD:
-    //   return {
-    //     ...state,
-    //     isAuthenticated: true,
-    //     loading: false,
-    //   };
-    // case CHANGE_PASSWORD_FAIL:
-    //   return {
-    //     ...state,
-    //     isAuthenticated: true,
-    //     loading: false,
-    //   };
+    case CHANGE_PASSWORD:
+    case CHANGE_PASSWORD_FAIL:
+      return {
+        ...state,
+      };
     case REGISTER2:
       localStorage.setItem('token', payload.token);
       return {

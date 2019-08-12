@@ -59,25 +59,10 @@ export const changePassword = (currentpassword, password, password2) => async di
       type: CHANGE_PASSWORD,
       payload: res.data, // expect a user token from database
     });
-    dispatch(setAlert(res.data, 'success'));
-
-    dispatch(loadUser());
+    dispatch(setAlert(res.data.success, 'success'));
+    // dispatch(loadUser());
   } catch (err) {
-    // const errors = err.response.data.errors;
-
-    // if (errors) {
-    //   errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
-    // }
-    // dispatch(setAlert(res.data, 'danger'));
-
-    // dispatch({
-    //   type: CHANGE_PASSWORD_FAIL,
-    // });
-
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
-    }
+    dispatch(setAlert(err.response.data.Error, 'danger'));
     dispatch({
       type: CHANGE_PASSWORD_FAIL,
     });

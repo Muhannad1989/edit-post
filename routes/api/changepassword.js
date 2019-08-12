@@ -33,7 +33,7 @@ router.put(
 
     // check password
     if (password !== password2) {
-      return response.json({ Error: 'passwords not match' });
+      return response.status(404).json({ Error: 'passwords not match' });
     }
 
     try {
