@@ -60,7 +60,7 @@ const Login = ({ login, isAuthenticated }) => {
       <button onClick={'change singin'} className="btn btn-danger">
         Another account
       </button>
-      <AnotherLogIn />
+      {/* <AnotherLogIn /> */}
       <p className="my-1">
         Don't have an account? <Link to="/register">Sign Up</Link>
       </p>

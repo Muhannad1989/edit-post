@@ -1,5 +1,4 @@
 const express = require('express');
-// changed from 'express-validator/check' to be 'express-validator'
 const User = require('../../models/User');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');

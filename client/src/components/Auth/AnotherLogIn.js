@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { register2 } from '../../actions/auth';
 import { connect } from 'react-redux';
+// import { Dashboard } from './Dashboard';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyBzJx-uHixKqIsA8h8Dp91OS4Fasjdi8kk',
@@ -24,13 +25,17 @@ const uiConfig = {
   },
 };
 
-const AnotherLogIn = ({ register2 /*auth: { isSignedIn }*/ }) => {
+const AnotherLogIn = ({ register2, auth: { loading } }) => {
   const [isSignedIn, setText] = useState(false);
+
+  // const signOut = () => {
+  //   setText({ isSignedIn: false }); // hook
+  // };
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
-      this.setState({ isSignedIn: !!user });
-      // setText({ isSignedIn: !!user }); // hook
-      setText({ isSignedIn: true }); // hook
+      // this.setState({ isSignedIn: !!user });
+      setText({ isSignedIn: !!user }); // hook
       // register2(user.email, user.email);
       console.log({ email: user.email, name: user.displayName });
     });
@@ -39,8 +44,8 @@ const AnotherLogIn = ({ register2 /*auth: { isSignedIn }*/ }) => {
   return (
     <div className="App">
       {isSignedIn ? (
+        // <Dashboard  />
         <span>
-          {/* inside */}
           <div>Signed In!</div>
           <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
           <h1>Welcome {firebase.auth().currentUser.displayName}</h1>

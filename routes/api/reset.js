@@ -2,49 +2,62 @@ const express = require('express');
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 const mail = require('./callbacks/mail/send');
+const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 
-// @route           PUT api/user/change
+// @route           PUT api/reset
 // @description     Change password post
-// @access          Private
-router.put('/', async (request, response) => {
-  const { email } = request.body;
-  // const errors = validationResult(request);
-  // if they are errors
-  // if (!errors.isEmpty()) {
-  //   return response.status(400).json({ errors: errors.array() });
-  // }
+// @access          Public
+router.put(
+  '/',
+  [check('email', 'Please include a valid email').isEmail()],
+  async (request, response) => {
+    const { email } = request.body;
 
-  // check password
+    const errors = validationResult(request);
 
-  try {
-    let user = await User.findOne({ email });
-
-    // check if the user exsist
-    if (!user) {
-      return response.status(404).json({ error: 'no user' });
+    // if they are errors
+    if (!errors.isEmpty()) {
+      return response.status(400).json({ errors: errors.array() });
     }
 
-    // generate random password
-    var newPassword = Math.random()
-      .toString(36)
-      .slice(2);
+    try {
+      let user = await User.findOne({ email });
 
-    await mail(response, 'Reset Password', email, `Your temporarily password is  : ${newPassword}`);
+      // check if the user exsist
+      if (!user) {
+        return response.status(404).json({ error: 'no user' });
+      }
 
-    // Encrypt password
-    const salt = await bcrypt.genSalt(10);
+      // generate random password
+      var newPassword = Math.random()
+        .toString(36)
+        .slice(2);
 
-    user.password = await bcrypt.hash(newPassword, salt);
-    // console.log(`new password after bcrypt: ${newPassword}`);
+      // send the new password to user's email before bcrypt it
+      await mail(
+        response,
+        'Reset Password',
+        email,
+        `Your temporarily password is  : ${newPassword}`,
+      );
 
-    await user.save();
+      // Encrypt password
+      const salt = await bcrypt.genSalt(10);
 
-    response.json({ newPassword: newPassword });
-  } catch (error) {
-    response.status(404).send('Server error');
-  }
-});
+      // override the old password
+      user.password = await bcrypt.hash(newPassword, salt);
+
+      // save new password on database
+      await user.save();
+
+      // return
+      response.json({ newPassword: newPassword });
+    } catch (error) {
+      response.status(404).send('Server error');
+    }
+  },
+);
 
 module.exports = router;
