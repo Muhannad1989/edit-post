@@ -21,7 +21,7 @@ const initialState = {
   isSignedIn: false,
 };
 
-// change initial State according to different cases ('types': which is as a key between functions('action') ans cases('reducer') )
+// change initial State according to different cases ('types': which is as a key between functions('action') and cases('reducer') )
 export default function(state = initialState, action) {
   const { type, payload } = action;
 
@@ -56,13 +56,13 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
+
     case REGISTER2_FAIL:
     case REGISTER_FAIL:
-    case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
     case ACCOUNT_DELETED:
-      // clean the storage
+      // case AUTH_ERROR: // should be uncomment after finish coding
       localStorage.removeItem('token');
       return {
         ...state,
