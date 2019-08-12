@@ -2,9 +2,6 @@ const express = require('express');
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
-
-const jwt = require('jsonwebtoken');
-const config = require('config');
 const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
@@ -25,16 +22,18 @@ router.put(
     ],
   ],
   async (request, response) => {
-    const { currentpassword, password, password2 } = request.body;
     const errors = validationResult(request);
+
     // if they are errors
     if (!errors.isEmpty()) {
       return response.status(400).json({ errors: errors.array() });
     }
+    // pull data out the body
+    const { currentpassword, password, password2 } = request.body;
 
     // check password
     if (password !== password2) {
-      return response.send('passwords not match');
+      return response.json({ Error: 'passwords not match' });
     }
 
     try {
@@ -42,27 +41,29 @@ router.put(
 
       // check if the user exsist
       if (!user) {
-        return response.status(404).send('no user');
+        return response.status(404).json({ Error: 'There is no user' });
       }
 
-      // match
+      // match inserted password (input) with current password (database)
       const isMatch = await bcrypt.compare(currentpassword, user.password);
 
       if (!isMatch) {
         return response
           .status(400)
-          .send('you password is not correct, please insert your current password ');
-        // return response.status(400).json({ error: [{ message: 'Invalid Credentials' }] });
+          .json({ Error: 'you password is not correct, please insert your current password' });
       }
 
       // Encrypt password
       const salt = await bcrypt.genSalt(10);
 
+      // override the old password
       user.password = await bcrypt.hash(password, salt);
+
+      // save password in database
       await user.save();
-      response.status(200).send('changed');
+      response.status(200).json({ success: 'password has been changed' });
     } catch (error) {
-      response.status(404).send('Server error');
+      response.status(404).json({ Error: 'Server error' });
     }
   },
 );
