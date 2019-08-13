@@ -47,7 +47,7 @@ const CommentItem = ({
             type="button"
             className="btn btn-danger"
           >
-            <i classNameName="fas fa-times" />
+            <i className="fas fa-times" />
             Delete Comment
           </button>
         )}
