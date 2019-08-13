@@ -37,3 +37,6 @@ export const CHANGE_PASSWORD_FAIL = 'CHANGE_PASSWORD_FAIL';
 
 export const RESET_SUCCESS = 'RESET';
 export const RESET_FAIL = 'RESET_FAIL';
+
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const EDIT_COMMENT_FAIL = 'EDIT_COMMENT_FAIL';

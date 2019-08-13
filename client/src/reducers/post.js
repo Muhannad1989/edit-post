@@ -9,6 +9,8 @@ import {
   REMOVE_COMMENT,
   EDIT_POST,
   EDIT_ERROR,
+  EDIT_COMMENT,
+  EDIT_COMMENT_FAIL,
 } from './../actions/types';
 
 const initState = {
@@ -16,27 +18,33 @@ const initState = {
   post: null,
   loading: true,
   error: {},
-  edit: false,
 };
-
 export default function(state = initState, action) {
   const { payload, type } = action;
+
   switch (type) {
+    case EDIT_COMMENT:
+      return {
+        ...state,
+        loading: false,
+      };
+    case EDIT_COMMENT_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
     case EDIT_POST:
       return {
         ...state,
         post: payload,
         loading: false,
-        edit: false,
       };
     case EDIT_ERROR:
       return {
         ...state,
         post: payload,
         loading: false,
-        edit: false,
       };
-
     case ADD_POST:
       // case EDIT_POST:
       return {

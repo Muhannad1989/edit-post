@@ -15,6 +15,7 @@ const addComment = require('./callbacks/posts/addComment');
 const removeComment = require('./callbacks/posts/removeComment');
 
 const editPost = require('./callbacks/posts/editPost');
+const editComment = require('./callbacks/posts/editComment');
 
 const router = express.Router();
 
@@ -36,7 +37,7 @@ router.post(
 );
 
 // @route           POST api/posts
-// @description     Add post
+// @description     edit post
 // @access          Private
 
 router.put(
@@ -50,6 +51,23 @@ router.put(
     ],
   ],
   editPost,
+);
+
+// @route           PUT api/posts/comment
+// @description     edit comment
+// @access          Private
+
+router.put(
+  '/comment/:id/:comment_id',
+  [
+    auth,
+    [
+      check('text', 'Text is requierd')
+        .not()
+        .isEmpty(),
+    ],
+  ],
+  editComment,
 );
 
 // @route           Get api/posts

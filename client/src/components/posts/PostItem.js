@@ -25,7 +25,7 @@ const PostItem = ({
       </div>
       <div>
         {!auth.loading && user === auth.user.user._id && (
-          <button onClick={() => setText(true)} className="btn btn-light">
+          <button onClick={() => setText(!edit)} className="btn btn-light">
             <i className="fas fa-edit" />
             Edit
           </button>
@@ -36,7 +36,7 @@ const PostItem = ({
             <EditPost currentText={text} _id={_id} passSetEdit={setText} />
           </Fragment>
         ) : (
-          <p /* contenteditable={true} */ className="my-1">{text}</p>
+          <p className="my-1">{text}</p>
         )}
 
         <p className="my-1">{_id}</p>
@@ -44,6 +44,7 @@ const PostItem = ({
           Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
         </p>
 
+        {/* {hide/display this items depend on component } */}
         {showActions && (
           <Fragment>
             <button onClick={() => addAndRemoveLike(_id)} type="button" className="btn btn-light">
