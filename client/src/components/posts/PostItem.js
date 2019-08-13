@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { addAndRemoveLike, deletePost } from '../../actions/post';
 import { addPost } from './../../actions/post';
 import EditPost from './EditPost';
+import './liked.css';
 const PostItem = ({
   addAndRemoveLike,
   deletePost,
@@ -15,6 +16,7 @@ const PostItem = ({
   // condition to reuse this component individual post 'Discussion '
 }) => {
   const [edit, setText] = useState(false);
+  let liked = likes.find(like => like.user.toString() === auth.user.user._id);
   return (
     <div className="post bg-white p-1 my-1">
       <div>
@@ -48,8 +50,10 @@ const PostItem = ({
         {showActions && (
           <Fragment>
             <button onClick={() => addAndRemoveLike(_id)} type="button" className="btn btn-light">
-              <i className="fas fa-thumbs-up" />{' '}
-              <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+              <i className={!liked ? `fas fa-thumbs-up` : `fas fa-thumbs-up liked`} />{' '}
+              <span>
+                {likes.length > 0 && <span className={liked && 'liked'}>{likes.length}</span>}
+              </span>
             </button>
             <Link to={`/posts/${_id}`} className="btn btn-primary">
               Discussion{' '}
