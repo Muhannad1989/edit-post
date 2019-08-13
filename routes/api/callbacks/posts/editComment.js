@@ -24,10 +24,6 @@ module.exports = async (request, response) => {
       return response.status(404).json({ msg: 'Post mot Found' });
     }
 
-    if (post.user.toString() !== request.user.id) {
-      return response.status(401).json({ msg: 'User not authorized' });
-    }
-
     const index = post.comments.map(ele => ele._id.toString()).indexOf(request.params.comment_id);
     if (index === -1) {
       return response.status(404).json({ msg: 'Comment mot Found' });
